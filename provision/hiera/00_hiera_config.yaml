@@ -1,0 +1,10 @@
+---
+:backends:
+  - yaml
+:yaml:
+  :datadir: 'provision/hiera'
+:hierarchy:
+  - '%{::hostname}'
+  - secrets
+  - nodes
+  - common

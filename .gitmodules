@@ -1,0 +1,9 @@
+[submodule "provision/modules/stdlib"]
+	path = provision/modules/stdlib
+	url = https://github.com/puppetlabs/puppetlabs-stdlib
+[submodule "provision/modules/postgresql"]
+	path = provision/modules/postgresql
+	url = https://github.com/puppetlabs/puppetlabs-postgresql
+[submodule "provision/modules/concat"]
+	path = provision/modules/concat
+	url = https://github.com/puppetlabs/puppetlabs-concat

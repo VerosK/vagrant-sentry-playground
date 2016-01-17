@@ -1,0 +1,8 @@
+---
+no_data: here
+
+# or add pulp password to secrets.yaml
+pulp_password: enter-here
+
+# random hash
+sentry::params::secret_code: 5efb1211bdf6ef51f309cdc286d637bef6b8dd1da80f2b00a17d9365
