@@ -23,12 +23,17 @@ class sentry::params (
 
   /* UNIX user */
   $user             = 'sentry',
+  $group            = 'sentry',
+  $home             = '/opt/sentry',
   /* db config */
   $db_driver        = 'postgres',
   $db_dbname        = 'sentry',
   $db_user          = 'sentry',
   $db_host          = 'localhost',
   $db_password      = 'sentry',
+  /* redis config */
+  $redis_config     = undef,
+  $celery_workers = $::processorcount,
 ){
 }
 
