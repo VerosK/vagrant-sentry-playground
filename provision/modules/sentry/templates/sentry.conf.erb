@@ -9,11 +9,11 @@ CONF_ROOT = os.path.dirname(__file__)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sentry.db.<%= scope['sentry::params::db_driver'] %>',
-        'NAME': '<%= scope['sentry::params::db_dbname'] %>',
-        'USER': '<%= scope['sentry::params::db_user'] %>',
-        'PASSWORD': '<%= scope['sentry::params::db_password'] %>',
-        'HOST': '<%= scope['sentry::params::db_host'] %>',
+        'ENGINE': 'sentry.db.<%= scope['sentry::db_driver'] %>',
+        'NAME': '<%= scope['sentry::db_dbname'] %>',
+        'USER': '<%= scope['sentry::db_user'] %>',
+        'PASSWORD': '<%= scope['sentry::db_password'] %>',
+        'HOST': '<%= scope['sentry::db_host'] %>',
         'PORT': '',
     }
 }
@@ -40,7 +40,7 @@ SENTRY_SINGLE_ORGANIZATION = True
 # Generic Redis configuration used as defaults for various things including:
 # Buffers, Quotas, TSDB
 
-<% if scope['params::redis_config'] -%>
+<% if scope['sentry::redis_config'] -%>
 # default Redis config
 SENTRY_REDIS_OPTIONS = {
     'hosts': {
@@ -51,8 +51,8 @@ SENTRY_REDIS_OPTIONS = {
     }
 }
 <% else -%>
-# use JSON config from @sentry::params::redis_config
-SENTRY_REDIS_OPTIONS = <%= require 'json'; JSON.pretty_generate(scope['params::redis_config']) %>
+# use JSON config from @sentry::redis_config
+SENTRY_REDIS_OPTIONS = <%= require 'json'; JSON.pretty_generate(scope['sentry::redis_config']) %>
 <% end -%>
 
 #########

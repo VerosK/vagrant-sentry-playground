@@ -11,29 +11,28 @@
 # See README for usage patterns.
 #
 class sentry::install (
-) inherits sentry::params {
+) {
+  
 
-  $params = $sentry::params
-
-  package{ $params::rpm_package:
+  package{ $sentry::rpm_package:
     ensure => 'installed',
   }
 
-  group { $params::group:
+  group { $sentry::group:
     ensure => 'present',
     system => true,
   }
-  user{ $params::user:
+  user{ $sentry::user:
     ensure     => 'present',
-    groups     => [$params::group],
+    groups     => [$sentry::group],
     system     => true,
-    home       => $params::home,
+    home       => $sentry::home,
     managehome => true,
   }
-  file { $params::home:
+  file { $sentry::home:
     ensure  => 'directory',
-    owner   => $params::user,
-    group   => $params::group,
+    owner   => $sentry::user,
+    group   => $sentry::group,
   }
   file { "${params::home}/.sentry":
     ensure => 'link',
@@ -42,16 +41,16 @@ class sentry::install (
 
   /* config files */
   file{"/etc/sentry/config.yml":
-    owner   => $params::user,
-    group   => $params::group,
+    owner   => $sentry::user,
+    group   => $sentry::group,
     mode    => 600,
     content => template('sentry/config.yml.erb'),
 
     notify  => Exec["sentry::install: Init database"]
   }
   file{"/etc/sentry/sentry.conf.py":
-    owner   => $params::user,
-    group   => $params::group,
+    owner   => $sentry::user,
+    group   => $sentry::group,
     mode    => 600,
     content => template('sentry/sentry.conf.erb'),
 
@@ -61,7 +60,7 @@ class sentry::install (
   /* create database */
   exec {"sentry::install: Init database":
     command => "/usr/bin/sentry upgrade --noinput" ,
-    user => $params::user,
+    user => $sentry::user,
     environment => 'SENTRY_CONF=/etc/sentry',
 
     refreshonly => true,

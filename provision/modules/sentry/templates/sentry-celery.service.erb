@@ -12,11 +12,11 @@ Description=Celery background worker
 After=network.target multi-user.target
 
 [Service]
-User=<%= scope['sentry::params::user'] %>
-Group=<%= scope['sentry::params::group'] %>
+User=<%= scope['sentry::user'] %>
+Group=<%= scope['sentry::group'] %>
 Environment=SENTRY_CONF=/etc/sentry/
 WorkingDirectory=/opt/sentry
 
-ExecStart=/usr/bin/sentry celery worker --concurrency <%= scope['sentry::params::celery_workers'] %>
+ExecStart=/usr/bin/sentry celery worker --concurrency <%= scope['sentry::celery_workers'] %>
 ExecReload=/bin/kill -HUP $MAINPID
 

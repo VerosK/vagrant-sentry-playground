@@ -28,20 +28,19 @@ service{"redis":
 }
 
 
-class {"sentry::params":
+class{'sentry':
   db_dbname  => 'sentry',
-
 }
-
 postgresql::server::db { "Create sentry database":
-  dbname   => $sentry::params::db_dbname,
-  user     => $sentry::params::db_user,
-  password => $sentry::params::db_password,
+  dbname   => $sentry::db_dbname,
+  user     => $sentry::db_user,
+  password => $sentry::db_password,
   encoding => 'UTF-8',
 
   before   => Class['sentry'],
 }
 
-class{'sentry':
-
+service {"firewalld":
+  ensure => stopped,
+  enable => false,
 }
