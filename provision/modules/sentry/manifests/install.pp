@@ -60,7 +60,7 @@ class sentry::install (
 
   /* create database */
   exec {"sentry::install: Init database":
-    command => "/usr/bin/sentry upgrade",
+    command => "/usr/bin/sentry upgrade --noinput" ,
     user => $params::user,
     environment => 'SENTRY_CONF=/etc/sentry',
 
